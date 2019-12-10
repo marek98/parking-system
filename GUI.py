@@ -1,5 +1,6 @@
 import tkinter as tk from tkinter import * from tkinter import ttk
 import os
+import Database as db
 
 ##docasna funkcia len
 def find(arr, key):
@@ -193,7 +194,7 @@ def removeNajomnika(var):
     print(' ', var)
 
 def addNajomnika(var):
-    print('addNajomnika')
+    print('zavolam db pre addNajomnika')
     print(' ', var)
 
 def onClickOnNotification(val):
