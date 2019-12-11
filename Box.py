@@ -1,35 +1,20 @@
 import tkinter as tk
-
+from Record import Record
 class Box:
-    def __init__(self, id, cislo, x, y, sirka, vyska, id_firmy, c, app, zaznam = None):
+    def __init__(self, id, number,  id_company, c, app, record = None):
         self.id = id
-        self.cislo = cislo
-        self.id_firmy = id_firmy #kto to ma zapozicane
-        self.x = x
-        self.y = y
-        self.sirka = sirka
-        self.vyska = vyska
-        self.zaznam = zaznam
-        self.button = tk.Button(c, bg = 'gray', text = 'Box '+ self.cislo + '\n' + 'firma', command = lambda : openBoxWin(self, app))
+        self.number = number
+        self.id_company = id_company #kto to ma zapozicane
+        self.record = record
+        self.button = tk.Button(c, bg = 'gray', text = 'Box '+ self.number + '\n' + 'firma', command = lambda : openBoxWin(self, app))
 
     def changeColor(self):
         self.button.config(bg = 'pink')
-
+    #TODO
     def getBoxColor(self):
-        if self.zaznam is None:
+        if self.record is None:
             return 'grey'
-        if self.zaznam.zapozicany:
+        if self.record.lended:
             return 'orange'
-
-class Zaznam:
-    def __init__(self):
-        self.id = id
-        self.obsadeny = obsadeny
-        self.zapozicany = zapozicany
-        self.ECV = ECV
-        self.id_firma = id_firma ##kto naozaj zaparkoval
-        
-    def uloz(self):
-        pass
 
 from GUI import openBoxWin
