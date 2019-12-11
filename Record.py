@@ -4,5 +4,8 @@ class Record:
         self.lended = lended
         self.ECV = ECV
         self.id_company = id_company ##kto naozaj zaparkoval
+        self.startParking = 'cas'
+        self.endParking = 'cas'
+        
     def save(self):
         pass
