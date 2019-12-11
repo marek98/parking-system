@@ -15,7 +15,7 @@ def find(arr, key):
                 return i[0]
     return 'NIC'
            
-class FrameParking:
+class FrameCarPark:
     def __init__(self, nb, sizePerc, app):
         self.frame = tk.Frame(nb)
         nb.add(self.frame, text="Parkovisko")
@@ -31,54 +31,22 @@ class FrameParking:
         self.lb.bind("<<ListboxSelect>>", onClickOnNotification)
         self.lb.pack(side = 'right')        
 
-        firmy = [('KVANT',0),('Integard',1),('KVANTN',3),('skola.sk',4),('D4R7',5),('MKMs',6),('MTRUST',7),('BusinessMedia',8),('RESTAURACIA',9),('NIKTO',10)]
+        companies = [('KVANT',0),('Integard',1),('KVANTN',3),('skola.sk',4),('D4R7',5),('MKMs',6),('MTRUST',7),('BusinessMedia',8),('RESTAURACIA',9),('NIKTO',10)]
         t = open('konfig-parkoviska.txt', 'r')
-        riadok = t.readline()
-        print(riadok)
+        line = t.readline()
+        print(line)
         
-        while riadok != '':
-            r = riadok.split(';')
+        while line != '':
+            r = line.split(';')
             print(r)
             print(r[0])
-            box = Box(5, str(r[1]), 6, 6, 7, 7, int(r[6]), self.canvas, app)
-            #b = tk.Button(self.canvas,bg = 'gray', text = 'Box '+str(r[1])+'\n'+find(firmy,r[6]), command = lambda : openBoxWin('1', app))
+            box = Box(5, str(r[1]), int(r[6]), self.canvas, app)
             box.button.place(x = int(float(r[2])), y = int(float(r[3])), width = int(float(r[4])),height = int(float(r[5])))
             self.boxes.append(box)
-            riadok = t.readline()
+            line = t.readline()
         t.close()
         
-        
-
-##                print('teraz napisem ')
-##        print(sizePerc)
-##
-##        pocetHorizontlane = 12
-##        pocetVertikalne = 3
-##        medzeraMedziBoxami = 10
-##        wi = (sizePerc[0] - 2* 50 - (pocetHorizontlane * medzeraMedziBoxami))/pocetHorizontlane 
-##        he = (sizePerc[1] - 2 * 50 - (pocetVertikalne * medzeraMedziBoxami))/pocetVertikalne
-##        print(wi)
-##        print(he)
-##        self.canvas.create_rectangle(1070, 620, 1072, 622, fill='red')
-##        
-##        xkova = 50
-##        ypsilonkova = 50
-
-##        for i in listSuradnic:
-##            xkova = i[0]
-##            ypsilonkova = i[1]
-##            #print(str(xkova)+';'+str(ypsilonkova)+';'+str(wi)+';'+str(he)+';')
-##            tk.Button(self.canvas,bg = 'gray', text = 'Box '+str(2)+',\nLampy.sk', command = lambda : openBoxWin('1', app)).place( height = int(he), width = int(wi), x = xkova, y = ypsilonkova,)
-##          
-##        for y in range(3):
-##            for x in range(12):
-##                #print('('+str(xkova)+', '+str(ypsilonkova)+'),')
-##                tk.Button(self.canvas,bg = 'gray', text = 'Box '+str(x)+',\nLampy.sk', command = lambda : openBoxWin('1', app)).place( height = int(he), width = int(wi), x = xkova, y = ypsilonkova,)
-##                xkova += wi + medzeraMedziBoxami
-##            xkova = 50
-##            ypsilonkova += he + medzeraMedziBoxami
-        
-class FrameStatistic:
+class FrameStatistics:
     def __init__(self, nb, sizePerc):
         self.frame = tk.Frame(nb)
         nb.add(self.frame, text="Štatistika")
@@ -148,7 +116,7 @@ class FrameStatistic:
         buttonGenerate = ttk.Button(self.canvas, text='Vygeneruj')
         buttonGenerate.pack()
         
-class FrameNajomnici:
+class FrameLessees:
     def __init__(self, nb, sizePerc):
         self.frame = tk.Frame(nb)
         nb.add(self.frame, text="Nájomníci")
@@ -169,9 +137,9 @@ class FrameNajomnici:
         fr3 = Frame(self.canvas)
         fr3.pack(side='right', padx=5)
         
-        self.najomnici = ['Lampy.sk', 'Malovanky', 'Kroksovo', 'Kosovo', 'Losovo','Lampy.sk', 'Malovanky', 'Kroksovo', 'Kosovo', 'Losovo','Lampy.sk', 'Malovanky', 'Kroksovo', 'Kosovo', 'Losovo','Lampy.sk', 'Malovanky', 'Kroksovo', 'Kosovo', 'Losovo','Lampy.sk', 'Malovanky', 'Kroksovo', 'Kosovo', 'Losovo','Lampy.sk', 'Malovanky', 'Kroksovo', 'Kosovo', 'Losovo','Lampy.sk', 'Malovanky', 'Kroksovo', 'Kosovo', 'Losovo','Lampy.sk', 'Malovanky', 'Kroksovo', 'Kosovo', 'Losovo','Lampy.sk', 'Malovanky', 'Kroksovo', 'Kosovo', 'Losovo','Lampy.sk', 'Malovanky', 'Kroksovo', 'Kosovo', 'Losovo','Lampy.sk', 'Malovanky', 'Kroksovo', 'Kosovo', 'Losovo']
+        self.lessees = ['Lampy.sk', 'Malovanky', 'Kroksovo', 'Kosovo', 'Losovo','Lampy.sk', 'Malovanky', 'Kroksovo', 'Kosovo', 'Losovo','Lampy.sk', 'Malovanky', 'Kroksovo', 'Kosovo', 'Losovo','Lampy.sk', 'Malovanky', 'Kroksovo', 'Kosovo', 'Losovo','Lampy.sk', 'Malovanky', 'Kroksovo', 'Kosovo', 'Losovo','Lampy.sk', 'Malovanky', 'Kroksovo', 'Kosovo', 'Losovo','Lampy.sk', 'Malovanky', 'Kroksovo', 'Kosovo', 'Losovo','Lampy.sk', 'Malovanky', 'Kroksovo', 'Kosovo', 'Losovo','Lampy.sk', 'Malovanky', 'Kroksovo', 'Kosovo', 'Losovo','Lampy.sk', 'Malovanky', 'Kroksovo', 'Kosovo', 'Losovo','Lampy.sk', 'Malovanky', 'Kroksovo', 'Kosovo', 'Losovo']
         self.lb = Listbox(fr21, relief=SUNKEN)
-        for i in self.najomnici:
+        for i in self.lessees:
             self.lb.insert(END, i)
         #self.lb.bind("<<ListboxSelect>>", onClickOnNotification)
 
@@ -199,7 +167,6 @@ class FrameNajomnici:
 def openBoxWin(box, app):
     currentBox = BoxWindow(box, app)
     box.changeColor()
-    #changeBoxColorTo(b[index],'blue')
 
 def changeBoxColorTo(b, color):
     b.config(background = color)
@@ -231,7 +198,7 @@ class BoxWindow:
         self.canvas = Canvas(self.win, width = sizePerc[0]-100, height = sizePerc[1]-100)
         self.canvas.pack(anchor='c')
 
-        label = ttk.Label(self.canvas, text='Parkovací box '+str(box.cislo))
+        label = ttk.Label(self.canvas, text='Parkovací box '+str(box.number))
         label.pack(padx = 5, pady = 10)
 
         labelEcv = ttk.Label(self.canvas, text='ECV: BA 123GB')
@@ -268,9 +235,9 @@ class NewBoxWindow:
         entryECV = Entry(self.canvas)
         entryECV.pack()
 
-        najomnici = ['Lampy.sk', 'Malovanky', 'Kroksovo', 'Kosovo', 'Losovo','Lampy.sk', 'Malovanky', 'Kroksovo', 'Kosovo', 'Losovo','Lampy.sk', 'Malovanky', 'Kroksovo', 'Kosovo', 'Losovo','Lampy.sk', 'Malovanky', 'Kroksovo', 'Kosovo', 'Losovo','Lampy.sk', 'Malovanky', 'Kroksovo', 'Kosovo', 'Losovo','Lampy.sk', 'Malovanky', 'Kroksovo', 'Kosovo', 'Losovo','Lampy.sk', 'Malovanky', 'Kroksovo', 'Kosovo', 'Losovo','Lampy.sk', 'Malovanky', 'Kroksovo', 'Kosovo', 'Losovo','Lampy.sk', 'Malovanky', 'Kroksovo', 'Kosovo', 'Losovo','Lampy.sk', 'Malovanky', 'Kroksovo', 'Kosovo', 'Losovo','Lampy.sk', 'Malovanky', 'Kroksovo', 'Kosovo', 'Losovo']
+        lessees = ['Lampy.sk', 'Malovanky', 'Kroksovo', 'Kosovo', 'Losovo','Lampy.sk', 'Malovanky', 'Kroksovo', 'Kosovo', 'Losovo','Lampy.sk', 'Malovanky', 'Kroksovo', 'Kosovo', 'Losovo','Lampy.sk', 'Malovanky', 'Kroksovo', 'Kosovo', 'Losovo','Lampy.sk', 'Malovanky', 'Kroksovo', 'Kosovo', 'Losovo','Lampy.sk', 'Malovanky', 'Kroksovo', 'Kosovo', 'Losovo','Lampy.sk', 'Malovanky', 'Kroksovo', 'Kosovo', 'Losovo','Lampy.sk', 'Malovanky', 'Kroksovo', 'Kosovo', 'Losovo','Lampy.sk', 'Malovanky', 'Kroksovo', 'Kosovo', 'Losovo','Lampy.sk', 'Malovanky', 'Kroksovo', 'Kosovo', 'Losovo','Lampy.sk', 'Malovanky', 'Kroksovo', 'Kosovo', 'Losovo']
        
-        comboBoxFirmy = ttk.Combobox(self.canvas, values = najomnici)
+        comboBoxFirmy = ttk.Combobox(self.canvas, values = lessees)
         comboBoxFirmy.pack()
         
         checkBoxBorowed = ttk.Checkbutton(self.canvas, text = 'Zapožičané')
@@ -292,9 +259,9 @@ class MainWindow:
         self.nb = ttk.Notebook(self.app)
         self.nb.pack()
         
-        self.parkovisko = FrameParking(self.nb, getSizeForPercent(self.app, 90), self.app)
-        self.statistiky = FrameStatistic(self.nb, getSizeForPercent(self.app, 60))
-        self.najomnici = FrameNajomnici(self.nb, getSizeForPercent(self.app, 45))
+        self.carPark = FrameCarPark(self.nb, getSizeForPercent(self.app, 90), self.app)
+        self.statistics = FrameStatistics(self.nb, getSizeForPercent(self.app, 60))
+        self.lessees = FrameLessees(self.nb, getSizeForPercent(self.app, 45))
 
         self.app.mainloop()
         
