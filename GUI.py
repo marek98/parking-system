@@ -2,7 +2,8 @@ import tkinter as tk
 from tkinter import *
 from tkinter import ttk
 import os
-import Database as db
+#import Database as db
+from Box import Box
 
 ##docasna funkcia len
 def find(arr, key):
@@ -13,12 +14,12 @@ def find(arr, key):
             else:
                 return i[0]
     return 'NIC'
-
+           
 class FrameParking:
     def __init__(self, nb, sizePerc, app):
         self.frame = tk.Frame(nb)
         nb.add(self.frame, text="Parkovisko")
-        
+        self.boxes = []
         self.canvas = Canvas(self.frame, width=sizePerc[0], height=sizePerc[1])
         self.canvas.pack(side='left')
         self.canvas.pack_propagate(0)
@@ -34,11 +35,19 @@ class FrameParking:
         t = open('konfig-parkoviska.txt', 'r')
         riadok = t.readline()
         print(riadok)
+        
         while riadok != '':
             r = riadok.split(';')
-            tk.Button(self.canvas,bg = 'gray', text = 'Box '+str(r[1])+'\n'+find(firmy,r[6]), command = lambda : openBoxWin('1', app)).place(x = int(float(r[2])), y = int(float(r[3])), width = int(float(r[4])),height = int(float(r[5])))
+            print(r)
+            print(r[0])
+            box = Box(5, str(r[1]), 6, 6, 7, 7, int(r[6]), self.canvas, app)
+            #b = tk.Button(self.canvas,bg = 'gray', text = 'Box '+str(r[1])+'\n'+find(firmy,r[6]), command = lambda : openBoxWin('1', app))
+            box.button.place(x = int(float(r[2])), y = int(float(r[3])), width = int(float(r[4])),height = int(float(r[5])))
+            self.boxes.append(box)
             riadok = t.readline()
         t.close()
+        
+        
 
 ##                print('teraz napisem ')
 ##        print(sizePerc)
@@ -187,9 +196,13 @@ class FrameNajomnici:
         buttonSaveChanges.pack(side='bottom', padx = 5, pady = 40)
 
 ## pomocne funkcie
-def openBoxWin(idcko, app):
-    print('openBoxWin(), id: ', idcko)
-    currentBox = BoxWindow(idcko,app)
+def openBoxWin(box, app):
+    currentBox = BoxWindow(box, app)
+    box.changeColor()
+    #changeBoxColorTo(b[index],'blue')
+
+def changeBoxColorTo(b, color):
+    b.config(background = color)
 
 def removeNajomnika(var):
     print('removeNajomnika')
@@ -209,7 +222,7 @@ def getSizeForPercent(main, percento):
     return (width, height)
 
 class BoxWindow:
-    def __init__(self, idcko, app):
+    def __init__(self, box, app):
         self.win = Tk()
         self.win.title('Box')
         sizePerc = getSizeForPercent(app, 60)
@@ -218,7 +231,7 @@ class BoxWindow:
         self.canvas = Canvas(self.win, width = sizePerc[0]-100, height = sizePerc[1]-100)
         self.canvas.pack(anchor='c')
 
-        label = ttk.Label(self.canvas, text='Parkovací box '+idcko)
+        label = ttk.Label(self.canvas, text='Parkovací box '+str(box.cislo))
         label.pack(padx = 5, pady = 10)
 
         labelEcv = ttk.Label(self.canvas, text='ECV: BA 123GB')
@@ -289,5 +302,5 @@ class MainWindow:
         self.app.title('Parkovací systém')
         self.app.geometry('{}x{}'.format(self.app.winfo_screenwidth(), self.app.winfo_screenheight()))
 
-
-main = MainWindow()
+if __name__ == '__main__':
+    main = MainWindow()
