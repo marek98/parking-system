@@ -38,10 +38,9 @@ class FrameCarPark:
         
         while line != '':
             r = line.split(';')
-            print(r)
-            print(r[0])
+            #print(r[0] + ';' + r[1] + ';' + str(int(float(r[2])) / self.canvas.winfo_screenwidth() * 100) + ';' + str(int(float(r[3])) / self.canvas.winfo_screenheight() * 100) + ';' + str(int(float(r[4])) / self.canvas.winfo_screenwidth() * 100) + ';' + str(int(float(r[5])) / self.canvas.winfo_screenheight() * 100) + ';' +r[6] + ';' + r[7])
             box = Box(5, str(r[1]), int(r[6]), self.canvas, app)
-            box.button.place(x = int(float(r[2])), y = int(float(r[3])), width = int(float(r[4])),height = int(float(r[5])))
+            box.button.place(x = (int(float(r[2]))/100*self.canvas.winfo_screenwidth() ), y = (int(float(r[3]))/100 *self.canvas.winfo_screenheight()), width = (int(float(r[4]))/100 * self.canvas.winfo_screenwidth()), height = (int(float(r[5])) / 100 * self.canvas.winfo_screenheight()))
             self.boxes.append(box)
             line = t.readline()
         t.close()
