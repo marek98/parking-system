@@ -2,7 +2,6 @@ import tkinter as tk
 from tkinter import *
 from tkinter import ttk
 import os
-#import Database as db
 from Box import Box
 
 ##docasna funkcia len
@@ -34,7 +33,6 @@ class FrameCarPark:
         companies = [('KVANT',0),('Integard',1),('KVANTN',3),('skola.sk',4),('D4R7',5),('MKMs',6),('MTRUST',7),('BusinessMedia',8),('RESTAURACIA',9),('NIKTO',10)]
         t = open('konfig-parkoviska.txt', 'r')
         line = t.readline()
-        print(line)
         
         while line != '':
             r = line.split(';')
@@ -212,7 +210,7 @@ class BoxWindow:
         typParkovania = ttk.Label(self.canvas, text='Zapožičané')
         typParkovania.pack(padx = 5, pady = 10)
 
-        buttonNahratFotku = tk.Button(self.canvas, text = 'Nahrať fotku')
+        buttonNahratFotku = tk.Button(self.canvas, text = 'Nahrať fotku', command= lambda: box.addPhoto())
         buttonNahratFotku.pack(padx = 5, pady = 10)
 
         buttonUkoncitParkovanie = tk.Button(self.canvas, text = 'Ukončiť parkovanie fotku')

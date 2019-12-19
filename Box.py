@@ -1,13 +1,18 @@
 import tkinter as tk
 from Record import Record
+
 class Box:
-    def __init__(self, id, number,  id_company, c, app, record = None):
+    def __init__(self, id, number, idCompany, c, app, record = None):
         self.id = id
         self.number = number
-        self.id_company = id_company #kto to ma zapozicane
+        self.idCompany = idCompany #kto to ma zapozicane
         self.record = record
         self.button = tk.Button(c, bg = 'gray', text = 'Box '+ self.number + '\n' + 'firma', command = lambda : openBoxWin(self, app))
 
+    def addPhoto(self):
+        self.record = Record(3, False,'345BA', 3)
+        self.record.addPhoto()
+        
     def changeColor(self):
         self.button.config(bg = 'pink')
     #TODO
