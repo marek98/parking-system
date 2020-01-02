@@ -93,11 +93,11 @@ class Statistics:
                 stats[rec.boxID] = stats[rec.boxID] + (((rec.endParking - rec.startParking)/24)/dayCount)
             else:
                 stats[rec.boxID] + (((rec.endParking - rec.startParking)/24)/dayCount)
-                #ked to bude napiču tak sorry
+                #ked to bude zle tak sorry
         sortedStats = sorted(stats.items(), key = lambda kv: kv[1], reverse = True)
         return sortedStats                
                 
-                    #traz sa ni nchce by Tomáš 29.12.2019 20:12 EAT
+                
 
     def boxInTime(self, dayCount, startRegion, endRegion):
         records = Record.getRecords()
