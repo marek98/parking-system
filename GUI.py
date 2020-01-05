@@ -2,8 +2,9 @@ import tkinter as tk
 from tkinter import *
 from tkinter import ttk
 import os
+from BOX import Box
 #import Database as db
-from Box import Box
+
 
 ##docasna funkcia len
 def find(arr, key):
@@ -39,7 +40,11 @@ class FrameCarPark:
         while line != '':
             r = line.split(';')
             #print(r[0] + ';' + r[1] + ';' + str(int(float(r[2])) / self.canvas.winfo_screenwidth() * 100) + ';' + str(int(float(r[3])) / self.canvas.winfo_screenheight() * 100) + ';' + str(int(float(r[4])) / self.canvas.winfo_screenwidth() * 100) + ';' + str(int(float(r[5])) / self.canvas.winfo_screenheight() * 100) + ';' +r[6] + ';' + r[7])
-            box = Box(5, str(r[1]), int(r[6]), self.canvas, app)
+
+            ''' pozri tu '''
+            
+            button = tk.Button(self.canvas, bg = 'gray', text = 'Box '+ str(r[1]) + '\n' + 'firma', command = lambda : openBoxWin(self, app)) #error pochadza odtiato self posuvas dalej frame car park
+            box = Box(5, str(r[1]), int(r[6]), self.canvas, app, button)
             box.button.place(x = (int(float(r[2]))/100*self.canvas.winfo_screenwidth() ), y = (int(float(r[3]))/100 *self.canvas.winfo_screenheight()), width = (int(float(r[4]))/100 * self.canvas.winfo_screenwidth()), height = (int(float(r[5])) / 100 * self.canvas.winfo_screenheight()))
             self.boxes.append(box)
             line = t.readline()
