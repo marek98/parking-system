@@ -2,44 +2,24 @@ import tkinter as tk
 from Record import Record
 
 class Box:
-    def __init__(self, num, id, record = None,c,app):
-        self.number = num
-        self.idCompany = fi
-        self.free = True
-        self.wrong = False
-        self.borrowed = False
+    def __init__(self, id, number, idCompany, c, app, record = None):
+        self.id = id
+        self.number = number
+        self.idCompany = idCompany #kto to ma zapozicane
         self.record = record
         self.button = tk.Button(c, bg = 'gray', text = 'Box '+ self.number + '\n' + 'firma', command = lambda : openBoxWin(self, app))
 
-    def newParking(self, ECV, firm, borr):
-        self.free = False
-        self.borrowed = borr
-        if firm != self.firm and not self.borrowed:
-            self.wrong = False
-
-    def endParking(self):
-        self.free = True
-        self.wrong = False
-        self.borrowed = False
-
-    def getColor(self):
-        color = 'grey'
-        if self.free:
-            color = 'grey'
-        if not self.free:
-            if not borrowed:
-                if not self.wrong:
-                    color = 'green'
-                else:
-                    color = 'red'
-            else:
-                color = 'red'
-        return color
+    def addPhoto(self):
+        self.record = Record(3, False,'345BA', 3)
+        self.record.addPhoto()
+        
     def changeColor(self):
-        self.button.config(bg = self.getColor())
+        self.button.config(bg = 'pink')
+    #TODO
+    def getBoxColor(self):
+        if self.record is None:
+            return 'grey'
+        if self.record.lended:
+            return 'orange'
 
-    def createRecord(self):
-        #vytvor instanciu záznamu a vrat ju
-
-    def endRecord(self):
-        #zrus instanciu záznamu
+from GUI import openBoxWin
