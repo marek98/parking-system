@@ -3,8 +3,6 @@ from tkinter import *
 from tkinter import ttk
 import os
 from BOX import Box
-#import Database as db
-
 
 ##docasna funkcia len
 def find(arr, key):
@@ -35,16 +33,14 @@ class FrameCarPark:
         companies = [('KVANT',0),('Integard',1),('KVANTN',3),('skola.sk',4),('D4R7',5),('MKMs',6),('MTRUST',7),('BusinessMedia',8),('RESTAURACIA',9),('NIKTO',10)]
         t = open('konfig-parkoviska.txt', 'r')
         line = t.readline()
-        print(line)
         
         while line != '':
             r = line.split(';')
             #print(r[0] + ';' + r[1] + ';' + str(int(float(r[2])) / self.canvas.winfo_screenwidth() * 100) + ';' + str(int(float(r[3])) / self.canvas.winfo_screenheight() * 100) + ';' + str(int(float(r[4])) / self.canvas.winfo_screenwidth() * 100) + ';' + str(int(float(r[5])) / self.canvas.winfo_screenheight() * 100) + ';' +r[6] + ';' + r[7])
-
-            ''' pozri tu '''
-            
-            button = tk.Button(self.canvas, bg = 'gray', text = 'Box '+ str(r[1]) + '\n' + 'firma', command = lambda : openBoxWin(self, app)) #error pochadza odtiato self posuvas dalej frame car park
-            box = Box(5, str(r[1]), int(r[6]), self.canvas, app, button)
+            box = Box(str(r[0]), str(r[1]), int(r[6]), self.canvas, app, tk.Button())
+            button = tk.Button(self.canvas, bg = 'gray', text = 'Box '+ str(r[1]) + '\n' + 'firma', command = lambda opt = box: openBoxWin(opt, app))
+            box.button = button
+            box.ztp = int(r[7])
             box.button.place(x = (int(float(r[2]))/100*self.canvas.winfo_screenwidth() ), y = (int(float(r[3]))/100 *self.canvas.winfo_screenheight()), width = (int(float(r[4]))/100 * self.canvas.winfo_screenwidth()), height = (int(float(r[5])) / 100 * self.canvas.winfo_screenheight()))
             self.boxes.append(box)
             line = t.readline()
@@ -169,7 +165,10 @@ class FrameLessees:
 
 ## pomocne funkcie
 def openBoxWin(box, app):
-    currentBox = BoxWindow(box, app)
+    if box.record == None:
+        currentBox = NewBoxWindow(box, app)
+    else:
+        currentBox = BoxWindow(box, app)
     box.changeColor()
 
 def changeBoxColorTo(b, color):
@@ -217,14 +216,14 @@ class BoxWindow:
         typParkovania = ttk.Label(self.canvas, text='Zapožičané')
         typParkovania.pack(padx = 5, pady = 10)
 
-        buttonNahratFotku = tk.Button(self.canvas, text = 'Nahrať fotku')
+        buttonNahratFotku = tk.Button(self.canvas, text = 'Nahrať fotku', command= lambda: box.addPhoto())
         buttonNahratFotku.pack(padx = 5, pady = 10)
 
         buttonUkoncitParkovanie = tk.Button(self.canvas, text = 'Ukončiť parkovanie fotku')
         buttonUkoncitParkovanie.pack(padx = 5, pady = 10)
         
 class NewBoxWindow:
-    def __init__(self, idcko, app):
+    def __init__(self, box, app):
         self.win = Tk()
         self.win.title('Box')
         sizePerc = getSizeForPercent(app, 60)
@@ -233,7 +232,7 @@ class NewBoxWindow:
         self.canvas = Canvas(self.win, background = 'navy', width = sizePerc[0]-100, height = sizePerc[1]-100)
         self.canvas.pack(anchor='c')
 
-        label = ttk.Label(self.canvas, text='Parkovací box '+idcko)
+        label = ttk.Label(self.canvas, text='Parkovací box '+box.number)
         label.pack(padx = 5, pady = 5)
 
         entryECV = Entry(self.canvas)
@@ -241,16 +240,18 @@ class NewBoxWindow:
 
         lessees = ['Lampy.sk', 'Malovanky', 'Kroksovo', 'Kosovo', 'Losovo','Lampy.sk', 'Malovanky', 'Kroksovo', 'Kosovo', 'Losovo','Lampy.sk', 'Malovanky', 'Kroksovo', 'Kosovo', 'Losovo','Lampy.sk', 'Malovanky', 'Kroksovo', 'Kosovo', 'Losovo','Lampy.sk', 'Malovanky', 'Kroksovo', 'Kosovo', 'Losovo','Lampy.sk', 'Malovanky', 'Kroksovo', 'Kosovo', 'Losovo','Lampy.sk', 'Malovanky', 'Kroksovo', 'Kosovo', 'Losovo','Lampy.sk', 'Malovanky', 'Kroksovo', 'Kosovo', 'Losovo','Lampy.sk', 'Malovanky', 'Kroksovo', 'Kosovo', 'Losovo','Lampy.sk', 'Malovanky', 'Kroksovo', 'Kosovo', 'Losovo','Lampy.sk', 'Malovanky', 'Kroksovo', 'Kosovo', 'Losovo']
        
+        firma = StringVar()
         comboBoxFirmy = ttk.Combobox(self.canvas, values = lessees)
         comboBoxFirmy.pack()
         
         checkBoxBorowed = ttk.Checkbutton(self.canvas, text = 'Zapožičané')
         checkBoxBorowed.pack()
 
+        borrowed = tk.IntVar()
         buttonNahradFotku = ttk.Button(self.canvas, text='Nahrať fotku')
         buttonNahradFotku.pack()
 
-        buttonNahradFotku = ttk.Button(self.canvas, text='Povrdiť')
+        buttonNahradFotku = ttk.Button(self.canvas, text='Povrdiť', command = lambda: [box.newParking(entryECV.get(),firma,borrowed), self.win.destroy()])
         buttonNahradFotku.pack()
         
         self.win.mainloop()

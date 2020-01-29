@@ -10,9 +10,10 @@ class Box:
         self.record = record
         self.ztp = ztp
         self.button = button
+        self.changeColor()
 
     def newParking(self, ECV, firm, borr):
-        if self.record is not None:
+        if self.record is None:
             self.record = self.createRecord(ECV, firm, borr)
             self.changeColor()
 
@@ -26,7 +27,7 @@ class Box:
         if self.record is None:
             color = 'grey'
         else:
-            if self.record.id_company == self.idCompany:
+            if self.record.idCompany == self.idCompany:
                 color = 'green'
             else:
                 if self.record.lended:
@@ -38,8 +39,12 @@ class Box:
     def changeColor(self):
         self.button.config(bg = self.getColor())
 
+    def addPhoto(self):
+        self.record.addPhoto()
+
     def createRecord(self, ECV, firm, borr):
-        pass
+        print('tu')
+        return Record(10, borr, ECV, firm, self.id)
         #vytvor instanciu záznamu a vrat ju
 
     def endRecord(self):
